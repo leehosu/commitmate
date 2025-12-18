@@ -1,0 +1,17 @@
+# Go 파일
+*.go text eol=lf
+
+# 문서
+*.md text eol=lf
+*.txt text eol=lf
+
+# YAML 파일
+*.yaml text eol=lf
+*.yml text eol=lf
+
+# 스크립트
+*.sh text eol=lf
+
+# 바이너리
+commitgen binary
+*.exe binary
