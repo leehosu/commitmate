@@ -40,12 +40,12 @@ func Default() *Config {
 		OpenAI: OpenAIConfig{
 			APIKey:    "",
 			Model:     "gpt-4o",
-			MaxTokens: 150,
+			MaxTokens: 100, // Rate limit 방지를 위해 줄임
 		},
 		Claude: ClaudeConfig{
 			APIKey:    "",
 			Model:     "claude-3-5-sonnet-20241022",
-			MaxTokens: 150,
+			MaxTokens: 100, // Rate limit 방지를 위해 줄임
 		},
 	}
 }

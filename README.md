@@ -210,6 +210,57 @@ go build -o commitgen
 ./commitgen
 ```
 
+## 트러블슈팅
+
+### Rate Limit 에러
+
+**에러:** "rate_limit exceeded" 또는 "quota exceeded"
+
+**원인:** 
+- AI API의 분당 토큰 제한 초과
+- 매우 큰 변경사항 (많은 파일, 큰 diff)
+
+**해결방법:**
+1. **변경사항을 나눠서 커밋:**
+   ```bash
+   # 파일별로 나눠서 커밋
+   git add file1.js
+   commitgen
+   
+   git add file2.js
+   commitgen
+   ```
+
+2. **더 작은 모델 사용:**
+   ```bash
+   # gpt-4o-mini는 더 저렴하고 빠름
+   commitgen config set-model openai gpt-4o-mini
+   
+   # Claude Haiku는 더 빠르고 저렴
+   commitgen config set-model claude claude-3-5-haiku-20241022
+   ```
+
+3. **잠시 대기 후 재시도:**
+   ```bash
+   # 1분 후 다시 시도
+   sleep 60 && commitgen
+   ```
+
+4. **수동 커밋 메시지 작성:**
+   ```bash
+   git commit -m "your message"
+   ```
+
+### 변경사항이 너무 큼
+
+commitgen은 큰 diff를 자동으로 요약합니다:
+- 10KB 이상: 통계 정보만 전달
+- 파일 목록과 변경 라인 수로 커밋 메시지 생성
+
+**권장:**
+- 작은 단위로 자주 커밋
+- 관련된 변경사항끼리 묶어서 커밋
+
 ## 라이선스
 
 MIT License - [LICENSE](LICENSE) 파일 참조

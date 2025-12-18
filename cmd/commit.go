@@ -47,6 +47,11 @@ func runCommit() error {
 		return fmt.Errorf("커밋할 변경사항이 없습니다. 'git add' 명령어를 먼저 실행하세요")
 	}
 
+	// Diff 크기가 크면 경고
+	if len(diff) > 5000 {
+		color.Yellow("⚠️  변경사항이 큽니다 (%d 바이트). 요약된 정보만 전달됩니다.", len(diff))
+	}
+
 	// 3. 설정 로드
 	cfg, err := config.Load()
 	if err != nil {

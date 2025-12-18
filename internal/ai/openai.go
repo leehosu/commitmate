@@ -49,6 +49,10 @@ func (c *OpenAIClient) GenerateCommitMessage(systemPrompt, userPrompt string) (s
 	)
 
 	if err != nil {
+		// Rate limit 에러인지 확인
+		if strings.Contains(err.Error(), "rate_limit") || strings.Contains(err.Error(), "quota") {
+			return "", fmt.Errorf("OpenAI API rate limit 초과: 잠시 후 다시 시도하거나, 더 작은 변경사항으로 나눠서 커밋하세요\n\n원본 에러: %w", err)
+		}
 		return "", fmt.Errorf("OpenAI API 호출 실패: %w", err)
 	}
 

@@ -96,6 +96,10 @@ func (c *ClaudeClient) GenerateCommitMessage(systemPrompt, userPrompt string) (s
 	}
 
 	if resp.StatusCode != http.StatusOK {
+		// Rate limit 에러인지 확인
+		if resp.StatusCode == 429 {
+			return "", fmt.Errorf("Claude API rate limit 초과 (429): 잠시 후 다시 시도하거나, 더 작은 변경사항으로 나눠서 커밋하세요\n\n응답: %s", string(body))
+		}
 		return "", fmt.Errorf("Claude API 오류 (상태 코드: %d): %s", resp.StatusCode, string(body))
 	}
 
