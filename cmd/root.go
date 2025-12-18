@@ -75,7 +75,5 @@ func initConfig() {
 	viper.AutomaticEnv()
 
 	// 설정 파일 읽기 (없어도 에러 무시)
-	if err := viper.ReadInConfig(); err == nil {
-		// 설정 파일 찾음 (디버그용)
-	}
+	_ = viper.ReadInConfig()
 }

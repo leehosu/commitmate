@@ -61,7 +61,7 @@ func runCommit() error {
 	// 4. AI 클라이언트 생성
 	client, err := ai.NewClient(cfg)
 	if err != nil {
-		return fmt.Errorf("AI 클라이언트를 생성할 수 없습니다: %w\n\n힌트: 'commitgen config set-key %s <API_KEY>' 명령어로 API 키를 설정하세요", cfg.Provider)
+		return fmt.Errorf("AI 클라이언트를 생성할 수 없습니다: %v\n\n힌트: 'commitgen config set-key %s <API_KEY>' 명령어로 API 키를 설정하세요", err, cfg.Provider)
 	}
 
 	// 5. 커밋 메시지 생성
@@ -153,6 +153,9 @@ func runCommit() error {
 		case "✗ Cancel - 취소":
 			color.Yellow("커밋이 취소되었습니다")
 			return nil
+		default:
+			// 예상치 못한 선택 (발생하지 않아야 함)
+			return fmt.Errorf("알 수 없는 선택: %s", result)
 		}
 	}
 }
