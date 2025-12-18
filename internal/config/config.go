@@ -54,7 +54,29 @@ func Default() *Config {
 func Load() (*Config, error) {
 	cfg := Default()
 
-	// 환경변수 우선 적용
+	// 홈 디렉토리 찾기
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return cfg, nil // 홈 디렉토리 없으면 기본값 사용
+	}
+
+	// Viper 설정
+	configDir := filepath.Join(home, ".commitgen")
+	configFile := filepath.Join(configDir, "config.yaml")
+
+	// 설정 파일이 존재하는지 확인
+	if _, err := os.Stat(configFile); err == nil {
+		// 설정 파일 읽기
+		viper.SetConfigFile(configFile)
+		if err := viper.ReadInConfig(); err == nil {
+			// 파일에서 설정 로드 (기본값 위에 덮어쓰기)
+			if err := viper.Unmarshal(cfg); err != nil {
+				return nil, fmt.Errorf("설정 파일 파싱 실패: %w", err)
+			}
+		}
+	}
+
+	// 환경변수로 덮어쓰기 (최우선)
 	if apiKey := os.Getenv("COMMITGEN_OPENAI_API_KEY"); apiKey != "" {
 		cfg.OpenAI.APIKey = apiKey
 	}
@@ -63,13 +85,6 @@ func Load() (*Config, error) {
 	}
 	if provider := os.Getenv("COMMITGEN_PROVIDER"); provider != "" {
 		cfg.Provider = provider
-	}
-
-	// Viper 설정 파일 읽기
-	if err := viper.ReadInConfig(); err == nil {
-		if err := viper.Unmarshal(cfg); err != nil {
-			return nil, fmt.Errorf("설정 파일 파싱 실패: %w", err)
-		}
 	}
 
 	return cfg, nil

@@ -46,12 +46,6 @@ sudo mv commitgen /usr/local/bin/
 # commitgen.exe를 압축 해제 후 PATH에 추가
 ```
 
-### Go install
-
-```bash
-go install github.com/leehosu/commitgen@latest
-```
-
 ## 빠른 시작
 
 ### 1. API 키 설정
@@ -128,26 +122,6 @@ export COMMITGEN_CLAUDE_API_KEY=sk-ant-xxxxx
 export COMMITGEN_PROVIDER=openai
 ```
 
-## 설정 파일
-
-설정은 `~/.commitgen/config.yaml`에 저장됩니다:
-
-```yaml
-provider: openai
-language: en
-template: conventional
-
-openai:
-  api_key: sk-xxxxx
-  model: gpt-4o
-  max_tokens: 100
-
-claude:
-  api_key: sk-ant-xxxxx
-  model: claude-3-5-sonnet-20241022
-  max_tokens: 100
-```
-
 ## Conventional Commits
 
 commitgen은 [Conventional Commits](https://www.conventionalcommits.org/) 형식을 따릅니다:
@@ -193,73 +167,6 @@ feat(auth): add JWT authentication middleware
 ✓ 커밋이 완료되었습니다!
 ```
 
-## 개발
-
-```bash
-# 저장소 클론
-git clone https://github.com/leehosu/commitgen.git
-cd commitgen
-
-# 의존성 설치
-go mod download
-
-# 빌드
-go build -o commitgen
-
-# 실행
-./commitgen
-```
-
-## 트러블슈팅
-
-### Rate Limit 에러
-
-**에러:** "rate_limit exceeded" 또는 "quota exceeded"
-
-**원인:** 
-- AI API의 분당 토큰 제한 초과
-- 매우 큰 변경사항 (많은 파일, 큰 diff)
-
-**해결방법:**
-1. **변경사항을 나눠서 커밋:**
-   ```bash
-   # 파일별로 나눠서 커밋
-   git add file1.js
-   commitgen
-   
-   git add file2.js
-   commitgen
-   ```
-
-2. **더 작은 모델 사용:**
-   ```bash
-   # gpt-4o-mini는 더 저렴하고 빠름
-   commitgen config set-model openai gpt-4o-mini
-   
-   # Claude Haiku는 더 빠르고 저렴
-   commitgen config set-model claude claude-3-5-haiku-20241022
-   ```
-
-3. **잠시 대기 후 재시도:**
-   ```bash
-   # 1분 후 다시 시도
-   sleep 60 && commitgen
-   ```
-
-4. **수동 커밋 메시지 작성:**
-   ```bash
-   git commit -m "your message"
-   ```
-
-### 변경사항이 너무 큼
-
-commitgen은 큰 diff를 자동으로 요약합니다:
-- 10KB 이상: 통계 정보만 전달
-- 파일 목록과 변경 라인 수로 커밋 메시지 생성
-
-**권장:**
-- 작은 단위로 자주 커밋
-- 관련된 변경사항끼리 묶어서 커밋
 
 ## 라이선스
 
