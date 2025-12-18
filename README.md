@@ -2,6 +2,12 @@
 
 🤖 AI 기반 Git 커밋 메시지 자동 생성 도구
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/leehosu/commitgen)](https://golang.org/)
+[![Release](https://img.shields.io/github/v/release/leehosu/commitgen)](https://github.com/leehosu/commitgen/releases)
+
+> 📖 **[빠른 시작 가이드](QUICKSTART.md)** | **[기여하기](CONTRIBUTING.md)** | **[변경 이력](CHANGELOG.md)**
+
 ## 특징
 
 - ✨ **AI 기반 커밋 메시지 생성**: OpenAI GPT 및 Anthropic Claude 지원
