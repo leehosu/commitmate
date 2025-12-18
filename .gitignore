@@ -1,0 +1,43 @@
+# 바이너리
+commitgen
+cgen
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# 테스트 바이너리
+*.test
+*.out
+
+# Go 워크스페이스 파일
+go.work
+go.work.sum
+
+# 의존성 디렉토리
+vendor/
+
+# 빌드 디렉토리
+dist/
+build/
+
+# 설정 파일 (로컬)
+.commitgen/
+*.local.yaml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 임시 파일
+tmp/
+temp/
+*.tmp

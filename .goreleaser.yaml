@@ -1,0 +1,102 @@
+# GoReleaser 설정
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+    - go test ./...
+
+builds:
+  - id: commitgen
+    binary: commitgen
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    # Windows에서는 arm64 제외
+    ignore:
+      - goos: windows
+        goarch: arm64
+    ldflags:
+      - -s -w
+      - -X github.com/leehosu/commitgen/cmd.version={{.Version}}
+      - -X github.com/leehosu/commitgen/cmd.commit={{.Commit}}
+      - -X github.com/leehosu/commitgen/cmd.date={{.Date}}
+
+archives:
+  - id: commitgen
+    format: tar.gz
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - README.md
+      - LICENSE
+
+checksum:
+  name_template: 'checksums.txt'
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+      - 'merge conflict'
+      - Merge pull request
+      - Merge remote-tracking branch
+      - Merge branch
+  groups:
+    - title: '🎉 새로운 기능'
+      regexp: '^.*?feat(\([[:word:]]+\))??!?:.+$'
+      order: 0
+    - title: '🐛 버그 수정'
+      regexp: '^.*?fix(\([[:word:]]+\))??!?:.+$'
+      order: 1
+    - title: '📝 문서'
+      regexp: '^.*?docs(\([[:word:]]+\))??!?:.+$'
+      order: 2
+    - title: '🔨 기타 변경사항'
+      order: 999
+
+release:
+  github:
+    owner: leehosu
+    name: commitgen
+  draft: false
+  prerelease: auto
+  mode: append
+  name_template: "v{{.Version}}"
+  footer: |
+    ## 설치 방법
+    
+    ### macOS/Linux
+    ```bash
+    # 다운로드 및 설치
+    tar -xzf commitgen_*_*.tar.gz
+    chmod +x commitgen
+    sudo mv commitgen /usr/local/bin/
+    ```
+    
+    ### Windows
+    ```powershell
+    # 압축 해제 후 PATH에 추가
+    ```
+    
+    ### Go install
+    ```bash
+    go install github.com/leehosu/commitgen@latest
+    ```
