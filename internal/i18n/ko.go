@@ -63,6 +63,8 @@ func getKoreanMessages() Messages {
 		ErrorSelectFailed:    "선택 중 오류 발생",
 		ErrorInputFailed:     "입력 중 오류 발생",
 		ErrorGetConfigPath:   "설정을 불러올 수 없습니다: %v",
+		ErrorUnknownSelection: "알 수 없는 선택: %s",
+		ErrorInvalidBoolValue: "잘못된 값입니다. 'true' 또는 'false'를 사용하세요",
 
 		// Hint 메시지
 		HintSetAPIKey: "힌트: 'commitmate config set-key %s <API_KEY>' 명령어로 API 키를 설정하세요",

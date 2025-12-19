@@ -60,9 +60,11 @@ func getEnglishMessages() Messages {
 		ErrorInvalidProvider: "Invalid provider. Use 'openai' or 'claude'",
 		ErrorInvalidLanguage: "Invalid language. Use 'ko' or 'en'",
 		ErrorSaveConfig:      "Failed to save configuration: %v",
-		ErrorSelectFailed:    "Selection failed",
-		ErrorInputFailed:     "Input failed",
-		ErrorGetConfigPath:   "Failed to load configuration: %v",
+		ErrorSelectFailed:     "Selection failed",
+		ErrorInputFailed:      "Input failed",
+		ErrorGetConfigPath:    "Failed to load configuration: %v",
+		ErrorUnknownSelection: "Unknown selection: %s",
+		ErrorInvalidBoolValue: "Invalid value. Use 'true' or 'false'",
 
 		// Hint messages
 		HintSetAPIKey: "Hint: Set API key with 'commitmate config set-key %s <API_KEY>'",

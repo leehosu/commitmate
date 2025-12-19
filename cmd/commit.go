@@ -43,7 +43,10 @@ func runCommit() error {
 	// 3. 설정 로드
 	cfg, err := config.Load()
 	if err != nil {
-		return fmt.Errorf("설정을 로드할 수 없습니다: %w", err)
+		// 설정 로드 실패 시에도 기본 설정으로 메시지 표시
+		defaultCfg := config.Default()
+		msg := i18n.GetMessages(defaultCfg.UILanguage)
+		return fmt.Errorf("%s: %w", msg.ErrorLoadConfig, err)
 	}
 
 	// UI 메시지 가져오기
@@ -201,7 +204,7 @@ func runCommit() error {
 			return nil
 		default:
 			// 예상치 못한 선택 (발생하지 않아야 함)
-			return fmt.Errorf("알 수 없는 선택: %s", result)
+			return fmt.Errorf(msg.ErrorUnknownSelection, result)
 		}
 	}
 }

@@ -134,7 +134,10 @@ var showCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		cfg, err := config.Load()
 		if err != nil {
-			color.Red("❌ 설정을 불러올 수 없습니다: %v", err)
+			// 설정 로드 실패 시 기본 언어로 메시지 표시
+			defaultCfg := config.Default()
+			msg := i18n.GetMessages(defaultCfg.UILanguage)
+			color.Red("❌ "+msg.ErrorGetConfigPath, err)
 			os.Exit(1)
 		}
 
@@ -260,7 +263,7 @@ var setJiraIntegrationCmd = &cobra.Command{
 		msg := i18n.GetMessages(cfg.UILanguage)
 
 		if enabled != "true" && enabled != "false" {
-			color.Red("❌ 잘못된 값입니다. 'true' 또는 'false'를 사용하세요")
+			color.Red("❌ " + msg.ErrorInvalidBoolValue)
 			os.Exit(1)
 		}
 

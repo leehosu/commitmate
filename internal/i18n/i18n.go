@@ -51,18 +51,20 @@ type Messages struct {
 	JiraIntegrationSet string
 
 	// 에러 메시지
-	ErrorNotGitRepo      string
-	ErrorNoStagedChanges string
-	ErrorLoadConfig      string
-	ErrorCreateClient    string
-	ErrorGenerateMessage string
-	ErrorCommitFailed    string
-	ErrorInvalidProvider string
-	ErrorInvalidLanguage string
-	ErrorSaveConfig      string
-	ErrorSelectFailed    string
-	ErrorInputFailed     string
-	ErrorGetConfigPath   string
+	ErrorNotGitRepo         string
+	ErrorNoStagedChanges    string
+	ErrorLoadConfig         string
+	ErrorCreateClient       string
+	ErrorGenerateMessage    string
+	ErrorCommitFailed       string
+	ErrorInvalidProvider    string
+	ErrorInvalidLanguage    string
+	ErrorSaveConfig         string
+	ErrorSelectFailed       string
+	ErrorInputFailed        string
+	ErrorGetConfigPath      string
+	ErrorUnknownSelection   string
+	ErrorInvalidBoolValue   string
 
 	// Hint 메시지
 	HintSetAPIKey string
