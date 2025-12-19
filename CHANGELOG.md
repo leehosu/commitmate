@@ -19,6 +19,21 @@
 ### 제거
 - 없음
 
+## [1.0.1] - 2024-12-19
+
+### 개선
+- 🎯 **JIRA 통합 완전 자동화**: 브랜치 이름에서 JIRA 패턴을 자동 감지하여 추가
+  - JIRA 패턴이 있는 브랜치: 자동으로 `[ISSUE-123]` 접두사 추가
+  - JIRA 패턴이 없는 브랜치: 접두사 없이 일반 커밋 메시지
+  - 별도 환경변수 설정 불필요
+  - `set-jira-integration false`로 감지 비활성화 가능
+
+### 수정
+- 🌏 **완전한 i18n 구현**: 모든 하드코딩된 한글 메시지를 i18n으로 전환
+  - `ErrorLoadConfig`, `ErrorUnknownSelection`, `ErrorInvalidBoolValue` 추가
+  - Ctrl+C 취소 메시지가 이제 `COMMITMATE_UI_LANGUAGE` 설정을 존중
+  - 모든 에러 메시지가 UI 언어 설정에 따라 표시됨
+
 ## [1.0.0] - 2024-12-19
 
 ### 변경 (Breaking Changes)
