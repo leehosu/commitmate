@@ -21,7 +21,15 @@ var commitCmd = &cobra.Command{
 	Long:  `Staged 변경사항을 분석하여 AI가 자동으로 커밋 메시지를 생성하고 커밋합니다.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := runCommit(); err != nil {
-			color.Red("❌ 오류: %v", err)
+			// 에러 발생 시 UI 언어에 맞게 출력
+			cfg, cfgErr := config.Load()
+			if cfgErr != nil {
+				cfg = config.Default()
+			}
+			msg := i18n.GetMessages(cfg.UILanguage)
+			
+			// 에러 메시지 출력 (i18n 적용)
+			color.Red("❌ %s: %v", msg.ErrorInputFailed, err)
 			os.Exit(1)
 		}
 	},
