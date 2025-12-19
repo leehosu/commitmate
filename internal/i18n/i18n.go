@@ -13,6 +13,7 @@ type Messages struct {
 	RegeneratingMessage string
 	MessageGenerated    string
 	NewMessageGenerated string
+	EditedMessage       string
 
 	// 커밋 작업
 	Committing    string

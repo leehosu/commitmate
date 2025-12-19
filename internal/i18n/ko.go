@@ -13,6 +13,7 @@ func getKoreanMessages() Messages {
 		RegeneratingMessage: "✨ 커밋 메시지를 다시 생성하는 중...",
 		MessageGenerated:    "✨ 생성된 커밋 메시지:",
 		NewMessageGenerated: "✨ 새로 생성된 커밋 메시지:",
+		EditedMessage:       "✏️  수정된 커밋 메시지:",
 
 		// 커밋 작업
 		Committing:      "🚀 커밋 실행 중...",

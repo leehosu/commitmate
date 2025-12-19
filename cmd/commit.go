@@ -162,13 +162,13 @@ func runCommit() error {
 				return fmt.Errorf("%s: %w", msg.ErrorInputFailed, err)
 			}
 
-			// 수정된 메시지로 커밋
-			color.Cyan(msg.Committing)
-			if err := git.Commit(editedMessage, noVerify); err != nil {
-				return fmt.Errorf("%s: %w", msg.ErrorCommitFailed, err)
-			}
-			color.Green(msg.CommitSuccess)
-			return nil
+			// 수정된 메시지 표시 및 다시 선택 화면으로
+			commitMessage = editedMessage
+			fmt.Println()
+			color.Green(msg.EditedMessage)
+			color.Yellow("%s", commitMessage)
+			fmt.Println()
+			continue
 
 		case msg.PromptRegenerate:
 			// 다시 생성

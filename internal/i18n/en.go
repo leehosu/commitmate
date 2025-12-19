@@ -13,6 +13,7 @@ func getEnglishMessages() Messages {
 		RegeneratingMessage: "✨ Regenerating commit message...",
 		MessageGenerated:    "✨ Generated commit message:",
 		NewMessageGenerated: "✨ Newly generated commit message:",
+		EditedMessage:       "✏️  Edited commit message:",
 
 		// Commit operations
 		Committing:      "🚀 Committing...",
