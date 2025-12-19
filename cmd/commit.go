@@ -97,9 +97,9 @@ func runCommit() error {
 		return fmt.Errorf("%s: %w", msg.ErrorGenerateMessage, err)
 	}
 
-	// JIRA 이슈 번호 추가
+	// JIRA 이슈 번호 자동 감지 및 추가
 	originalMessage := commitMessage
-	commitMessage, _ = git.FormatCommitMessage(commitMessage, cfg.JiraIntegration)
+	commitMessage, _ = git.FormatCommitMessage(commitMessage)
 	
 	// JIRA 이슈가 추가되었으면 사용자에게 알림
 	if originalMessage != commitMessage {
@@ -178,9 +178,9 @@ func runCommit() error {
 				return fmt.Errorf("%s: %w", msg.ErrorGenerateMessage, err)
 			}
 
-			// JIRA 이슈 번호 추가
+			// JIRA 이슈 번호 자동 감지 및 추가
 			originalMessage := commitMessage
-			commitMessage, _ = git.FormatCommitMessage(commitMessage, cfg.JiraIntegration)
+			commitMessage, _ = git.FormatCommitMessage(commitMessage)
 			
 			// JIRA 이슈가 추가되었으면 사용자에게 알림
 			if originalMessage != commitMessage {

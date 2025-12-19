@@ -34,7 +34,6 @@ func getKoreanMessages() Messages {
 		ConfigCommitLanguage: "커밋 메시지 언어: %s",
 		ConfigUILanguage:     "UI 언어: %s",
 		ConfigTemplate:       "템플릿: %s",
-		ConfigJiraIntegration: "JIRA 통합: %v",
 		OpenAISettings:       "OpenAI 설정:",
 		ClaudeSettings:       "Claude 설정:",
 		APIKeyLabel:          "  API 키: %s",
@@ -44,11 +43,10 @@ func getKoreanMessages() Messages {
 
 		// 성공 메시지
 		APIKeySaved:        "✓ %s API 키가 저장되었습니다",
-		ProviderSet:        "✓ 기본 제공자가 %s로 설정되었습니다",
-		ModelSet:           "✓ %s 모델이 %s로 설정되었습니다",
-		CommitLanguageSet:  "✓ 커밋 메시지 언어가 %s로 설정되었습니다",
-		UILanguageSet:      "✓ UI 언어가 %s로 설정되었습니다",
-		JiraIntegrationSet: "✓ JIRA 통합이 %v로 설정되었습니다",
+		ProviderSet:       "✓ 기본 제공자가 %s로 설정되었습니다",
+		ModelSet:          "✓ %s 모델이 %s로 설정되었습니다",
+		CommitLanguageSet: "✓ 커밋 메시지 언어가 %s로 설정되었습니다",
+		UILanguageSet:     "✓ UI 언어가 %s로 설정되었습니다",
 
 		// 에러 메시지
 		ErrorNotGitRepo:      "Git 저장소가 아닙니다",

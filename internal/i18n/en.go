@@ -30,12 +30,11 @@ func getEnglishMessages() Messages {
 
 		// Config
 		ConfigTitle:           "📋 Current configuration:",
-		ConfigProvider:        "Default provider: %s",
-		ConfigCommitLanguage:  "Commit message language: %s",
-		ConfigUILanguage:      "UI language: %s",
-		ConfigTemplate:        "Template: %s",
-		ConfigJiraIntegration: "JIRA integration: %v",
-		OpenAISettings:        "OpenAI settings:",
+		ConfigProvider:       "Default provider: %s",
+		ConfigCommitLanguage: "Commit message language: %s",
+		ConfigUILanguage:     "UI language: %s",
+		ConfigTemplate:       "Template: %s",
+		OpenAISettings:       "OpenAI settings:",
 		ClaudeSettings:        "Claude settings:",
 		APIKeyLabel:           "  API key: %s",
 		APIKeyNotSet:          "  API key: (not set)",
@@ -44,11 +43,10 @@ func getEnglishMessages() Messages {
 
 		// Success messages
 		APIKeySaved:        "✓ %s API key saved successfully",
-		ProviderSet:        "✓ Default provider set to %s",
-		ModelSet:           "✓ %s model set to %s",
-		CommitLanguageSet:  "✓ Commit message language set to %s",
-		UILanguageSet:      "✓ UI language set to %s",
-		JiraIntegrationSet: "✓ JIRA integration set to %v",
+		ProviderSet:       "✓ Default provider set to %s",
+		ModelSet:          "✓ %s model set to %s",
+		CommitLanguageSet: "✓ Commit message language set to %s",
+		UILanguageSet:     "✓ UI language set to %s",
 
 		// Error messages
 		ErrorNotGitRepo:      "Not a git repository",

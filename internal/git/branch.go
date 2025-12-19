@@ -25,15 +25,9 @@ func ExtractJiraIssue(branchName string) string {
 	return match
 }
 
-// FormatCommitMessage adds JIRA issue key if present in branch name
-// If jiraIntegration is false, explicitly skip JIRA detection
-// If true or not set, automatically detect and add JIRA issue if present
-func FormatCommitMessage(message string, jiraIntegration bool) (string, error) {
-	// JIRA 통합이 명시적으로 비활성화되어 있으면 원본 반환
-	if !jiraIntegration {
-		return message, nil
-	}
-
+// FormatCommitMessage automatically detects and adds JIRA issue key if present in branch name
+// No configuration needed - works automatically based on branch name pattern
+func FormatCommitMessage(message string) (string, error) {
 	// Get current branch
 	branch, err := GetCurrentBranch()
 	if err != nil {

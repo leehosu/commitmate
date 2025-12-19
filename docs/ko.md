@@ -234,23 +234,14 @@ commitmate
 # 결과: feat: add user authentication (JIRA 접두사 없음)
 ```
 
-### 설정
+### 자동 동작
 
-기본적으로 JIRA 통합은 **활성화**되어 있으며 자동으로 작동합니다. 필요시 비활성화할 수 있습니다:
-
-```bash
-# JIRA 통합 비활성화 (감지 건너뛰기)
-commitmate config set-jira-integration false
-
-# JIRA 통합 재활성화 (기본값)
-commitmate config set-jira-integration true
-```
-
-활성화 상태(기본값)에서 commitmate는 자동으로:
-- ✅ 브랜치 이름에서 JIRA 패턴 감지
-- ✅ 패턴이 발견되면 커밋 메시지에 추가
-- ✅ JIRA 패턴이 없는 브랜치는 무시
-- ✅ 특수 브랜치(main, master, develop)는 제외
+commitmate는 **항상** 자동으로 작동합니다:
+- ✅ 브랜치 이름에서 JIRA 패턴 자동 감지
+- ✅ 패턴이 있으면 `[ISSUE-123]` 접두사 추가
+- ✅ 패턴이 없으면 접두사 생략
+- ✅ 설정이나 환경변수 불필요
+- ✅ 특수 브랜치(main, master, develop) 제외
 
 ### 지원하는 패턴
 

@@ -150,7 +150,6 @@ var showCmd = &cobra.Command{
 		color.White(msg.ConfigCommitLanguage, cfg.CommitLanguage)
 		color.White(msg.ConfigUILanguage, cfg.UILanguage)
 		color.White(msg.ConfigTemplate, cfg.Template)
-		color.White(msg.ConfigJiraIntegration, cfg.JiraIntegration)
 		fmt.Println()
 
 		color.Yellow(msg.OpenAISettings)
@@ -245,39 +244,6 @@ var setUILanguageCmd = &cobra.Command{
 	},
 }
 
-var setJiraIntegrationCmd = &cobra.Command{
-	Use:   "set-jira-integration [enabled]",
-	Short: "JIRA 통합을 설정합니다",
-	Long:  `브랜치 이름에서 JIRA 이슈 번호를 감지하여 커밋 메시지에 자동으로 추가합니다 (true 또는 false).`,
-	Example: `  commitgen config set-jira-integration true
-  commitgen config set-jira-integration false`,
-	Args: cobra.ExactArgs(1),
-	Run: func(cmd *cobra.Command, args []string) {
-		enabled := args[0]
-
-		cfg, err := config.Load()
-		if err != nil {
-			cfg = config.Default()
-		}
-
-		msg := i18n.GetMessages(cfg.UILanguage)
-
-		if enabled != "true" && enabled != "false" {
-			color.Red("❌ " + msg.ErrorInvalidBoolValue)
-			os.Exit(1)
-		}
-
-		cfg.JiraIntegration = enabled == "true"
-
-		if err := config.Save(cfg); err != nil {
-			color.Red("❌ "+msg.ErrorSaveConfig, err)
-			os.Exit(1)
-		}
-
-		color.Green(msg.JiraIntegrationSet, cfg.JiraIntegration)
-	},
-}
-
 func maskAPIKey(key string) string {
 	if len(key) <= 8 {
 		return "***"
@@ -292,6 +258,5 @@ func init() {
 	configCmd.AddCommand(setModelCmd)
 	configCmd.AddCommand(setCommitLanguageCmd)
 	configCmd.AddCommand(setUILanguageCmd)
-	configCmd.AddCommand(setJiraIntegrationCmd)
 	configCmd.AddCommand(showCmd)
 }
