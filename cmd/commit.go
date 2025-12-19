@@ -204,7 +204,6 @@ func runCommit() error {
 				case msg.EditMenuBack:
 					// 뒤로가기 - 메인 선택 화면으로
 					fmt.Println()
-					break
 				}
 
 				// EditMenuBack인 경우 수정 메뉴 루프 종료
