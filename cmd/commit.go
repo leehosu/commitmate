@@ -176,7 +176,10 @@ func runCommit() error {
 					}
 					editedMessage, err := promptEdit.Run()
 					if err != nil {
-						// Ctrl+C 등으로 취소하면 수정 메뉴로 돌아감
+						// Ctrl+C/ESC 등으로 취소하면 수정 메뉴로 돌아감
+						fmt.Println()
+						color.Cyan(msg.EditCancelled)
+						fmt.Println()
 						continue
 					}
 

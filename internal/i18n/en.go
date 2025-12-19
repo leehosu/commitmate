@@ -19,6 +19,7 @@ func getEnglishMessages() Messages {
 		Committing:      "🚀 Committing...",
 		CommitSuccess:   "✓ Commit completed successfully!",
 		CommitCancelled: "Commit cancelled",
+		EditCancelled:   "↩️  Edit cancelled. Returning to previous menu.",
 		DryRunMode:      "ℹ️  --dry-run mode: not committing",
 
 		// Prompts
