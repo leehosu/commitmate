@@ -23,16 +23,16 @@ type Messages struct {
 	DryRunMode      string
 
 	// 프롬프트
-	PromptLabel         string
-	PromptYes           string
-	PromptEdit          string
-	PromptRegenerate    string
-	PromptCancel        string
-	EditPromptLabel     string
-	EditMenuLabel       string
-	EditMenuEdit        string
-	EditMenuUseMessage  string
-	EditMenuBack        string
+	PromptLabel           string
+	PromptYes             string
+	PromptEdit            string
+	PromptRegenerate      string
+	PromptCancel          string
+	EditPromptLabel       string
+	EditActionLabel       string
+	EditActionUseMessage  string
+	EditActionEditAgain   string
+	EditActionBack        string
 
 	// Config
 	ConfigTitle          string

@@ -23,16 +23,16 @@ func getKoreanMessages() Messages {
 		DryRunMode:      "ℹ️  --dry-run 모드: 커밋하지 않습니다",
 
 		// 프롬프트
-		PromptLabel:         "이 커밋 메시지를 사용하시겠습니까?",
-		PromptYes:           "✓ Yes - 커밋 실행",
-		PromptEdit:          "✎ Edit - 수정 후 커밋",
-		PromptRegenerate:    "↻ Regenerate - 다시 생성",
-		PromptCancel:        "✗ Cancel - 취소",
-		EditPromptLabel:     "커밋 메시지",
-		EditMenuLabel:       "수정하시겠습니까?",
-		EditMenuEdit:        "✎ Edit - 메시지 수정",
-		EditMenuUseMessage:  "✓ Use - 이 메시지로 커밋",
-		EditMenuBack:        "↩️  Back - 뒤로 가기",
+		PromptLabel:           "이 커밋 메시지를 사용하시겠습니까?",
+		PromptYes:             "✓ Yes - 커밋 실행",
+		PromptEdit:            "✎ Edit - 수정",
+		PromptRegenerate:      "↻ Regenerate - 다시 생성",
+		PromptCancel:          "✗ Cancel - 취소",
+		EditPromptLabel:       "커밋 메시지",
+		EditActionLabel:       "수정된 메시지를 어떻게 하시겠습니까?",
+		EditActionUseMessage:  "✓ Use - 이 메시지로 커밋",
+		EditActionEditAgain:   "✎ Edit again - 다시 수정",
+		EditActionBack:        "↩️  Back - 뒤로 가기",
 
 		// Config
 		ConfigTitle:          "📋 현재 설정:",

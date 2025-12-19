@@ -152,47 +152,45 @@ func runCommit() error {
 			return nil
 
 		case msg.PromptEdit:
-			// 수정 메뉴 루프
+			// 바로 수정 입력 화면으로
 			for {
-				selectEdit := promptui.Select{
-					Label: msg.EditMenuLabel,
+				// 메시지 수정
+				promptEdit := promptui.Prompt{
+					Label:   msg.EditPromptLabel,
+					Default: commitMessage,
+				}
+				editedMessage, err := promptEdit.Run()
+				if err != nil {
+					// Ctrl+C/ESC로 취소 시 메인 메뉴로
+					fmt.Println()
+					color.Cyan(msg.EditCancelled)
+					fmt.Println()
+					break
+				}
+
+				// 수정된 메시지 표시
+				commitMessage = editedMessage
+				fmt.Println()
+				color.Green(msg.EditedMessage)
+				color.Yellow("%s", commitMessage)
+				fmt.Println()
+
+				// 액션 선택 (Use / Edit again / Back)
+				selectAction := promptui.Select{
+					Label: msg.EditActionLabel,
 					Items: []string{
-						msg.EditMenuEdit,
-						msg.EditMenuUseMessage,
-						msg.EditMenuBack,
+						msg.EditActionUseMessage,
+						msg.EditActionEditAgain,
+						msg.EditActionBack,
 					},
 				}
-				_, editResult, err := selectEdit.Run()
+				_, actionResult, err := selectAction.Run()
 				if err != nil {
 					return fmt.Errorf("%s: %w", msg.ErrorSelectFailed, err)
 				}
 
-				switch editResult {
-				case msg.EditMenuEdit:
-					// 메시지 수정
-					promptEdit := promptui.Prompt{
-						Label:   msg.EditPromptLabel,
-						Default: commitMessage,
-					}
-					editedMessage, err := promptEdit.Run()
-					if err != nil {
-						// Ctrl+C/ESC 등으로 취소하면 수정 메뉴로 돌아감
-						fmt.Println()
-						color.Cyan(msg.EditCancelled)
-						fmt.Println()
-						continue
-					}
-
-					// 수정된 메시지 표시
-					commitMessage = editedMessage
-					fmt.Println()
-					color.Green(msg.EditedMessage)
-					color.Yellow("%s", commitMessage)
-					fmt.Println()
-					// 수정 후 다시 수정 메뉴로
-					continue
-
-				case msg.EditMenuUseMessage:
+				switch actionResult {
+				case msg.EditActionUseMessage:
 					// 현재 메시지로 커밋
 					color.Cyan(msg.Committing)
 					if err := git.Commit(commitMessage, noVerify); err != nil {
@@ -201,13 +199,19 @@ func runCommit() error {
 					color.Green(msg.CommitSuccess)
 					return nil
 
-				case msg.EditMenuBack:
-					// 뒤로가기 - 메인 선택 화면으로
+				case msg.EditActionEditAgain:
+					// 다시 수정 - 루프 계속
 					fmt.Println()
+					continue
+
+				case msg.EditActionBack:
+					// 메인 선택 화면으로
+					fmt.Println()
+					break
 				}
 
-				// EditMenuBack인 경우 수정 메뉴 루프 종료
-				if editResult == msg.EditMenuBack {
+				// Back인 경우 수정 루프 종료
+				if actionResult == msg.EditActionBack {
 					break
 				}
 			}
