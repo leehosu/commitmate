@@ -19,6 +19,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - Nothing
 
+## [1.1.6] - 2024-12-19
+
+### Fixed
+- 🐛 **Removed redundant colon from edit input prompt**
+  - Customized promptui template to remove automatic colon
+  - Changed from `✔ : message` to `✔ message`
+  - Much cleaner and less confusing input prompt
+
+### Improved
+- ✨ **Perfect edit prompt layout**: No more redundant punctuation
+- 📝 **Better UX**: Clean and intuitive input field
+
 ## [1.1.5] - 2024-12-19
 
 ### Changed
