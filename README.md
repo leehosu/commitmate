@@ -1,39 +1,42 @@
 # commitgen
 
-🤖 AI 기반 Git 커밋 메시지 자동 생성 도구
+🤖 AI-powered Git commit message generator
+
+**[English](README.md)** | [한국어](docs/ko.md)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Go Version](https://img.shields.io/github/go-mod/go-version/leehosu/commitgen)](https://golang.org/)
 [![Release](https://img.shields.io/github/v/release/leehosu/commitgen)](https://github.com/leehosu/commitgen/releases)
 
->  **[기여하기](CONTRIBUTING.md)** | **[변경 이력](CHANGELOG.md)**
+>  **[Contributing](CONTRIBUTING.md)** | **[Changelog](CHANGELOG.md)**
 
-## 특징
+## Features
 
-- ✨ **AI 기반 커밋 메시지 생성**: OpenAI GPT 및 Anthropic Claude 지원
-- 📝 **Conventional Commits 포맷**: 업계 표준 커밋 메시지 형식
-- 🎯 **간단한 사용법**: 한 번의 명령어로 커밋 완료
-- ⚙️ **유연한 설정**: API 키 및 제공자 선택 가능
-- 🚀 **크로스 플랫폼**: Linux, macOS, Windows 지원
+- ✨ **AI-powered commit message generation**: Supports OpenAI GPT and Anthropic Claude
+- 📝 **Conventional Commits format**: Industry-standard commit message convention
+- 🌏 **Multilingual support**: Korean/English commit messages and UI
+- 🎯 **Simple usage**: Commit with a single command
+- ⚙️ **Flexible configuration**: Choose API keys and providers
+- 🚀 **Cross-platform**: Linux, macOS, Windows support
 
-## 설치
+## Installation
 
-### Homebrew (추천) 🍺
+### Homebrew (Recommended) 🍺
 
 ```bash
-# Tap 추가
+# Add tap
 brew tap leehosu/tap
 
-# 설치
+# Install
 brew install commitgen
 
-# 확인
+# Verify
 commitgen version
 ```
 
-### 바이너리 다운로드
+### Binary Download
 
-최신 릴리즈에서 OS에 맞는 바이너리를 다운로드하세요:
+Download the binary for your OS from the latest release:
 [Releases](https://github.com/leehosu/commitgen/releases)
 
 ```bash
@@ -43,88 +46,94 @@ chmod +x commitgen
 sudo mv commitgen /usr/local/bin/
 
 # Windows
-# commitgen.exe를 압축 해제 후 PATH에 추가
+# Extract commitgen.exe and add to PATH
 ```
 
-## 빠른 시작
+## Quick Start
 
-### 1. API 키 설정
+### 1. Set API Key
 
-**OpenAI 사용:**
+**Using OpenAI:**
 ```bash
 commitgen config set-key openai sk-xxxxx
 commitgen config set-provider openai
 ```
 
-**Claude 사용:**
+**Using Claude:**
 ```bash
 commitgen config set-key claude sk-ant-xxxxx
 commitgen config set-provider claude
 ```
 
-### 2. 커밋 생성
+### 2. Generate Commit
 
 ```bash
-# 파일 변경 후
+# After making changes
 git add .
 
-# AI가 자동으로 커밋 메시지 생성 및 커밋
+# AI automatically generates commit message and commits
 commitgen
 ```
 
-## 사용법
+## Usage
 
-### 기본 명령어
+### Basic Commands
 
 ```bash
-# 기본 사용 (staged 변경사항 분석 및 자동 커밋)
+# Basic usage (analyze staged changes and commit)
 commitgen
 
-# 커밋 메시지만 생성하고 커밋하지 않음
+# Generate message only without committing
 commitgen --dry-run
 
-# 특정 AI 제공자 사용 (일회성)
+# Use specific AI provider (one-time)
 commitgen --provider openai
 commitgen --provider claude
 
-# git hooks 무시
+# Skip git hooks
 commitgen --no-verify
 ```
 
-### 설정 관리
+### Configuration Management
 
 ```bash
-# API 키 설정
+# Set API key
 commitgen config set-key openai sk-xxxxx
 commitgen config set-key claude sk-ant-xxxxx
 
-# 기본 제공자 설정
+# Set default provider
 commitgen config set-provider openai
 
-# 모델 변경
+# Change model
 commitgen config set-model openai gpt-4o-mini
 commitgen config set-model claude claude-3-5-haiku-20241022
 
-# 현재 설정 확인
+# Language settings
+commitgen config set-commit-language ko  # Commit message language (ko/en)
+commitgen config set-ui-language en      # UI language (ko/en)
+
+# Show current configuration
 commitgen config show
 
-# 버전 확인
+# Check version
 commitgen version
 ```
 
-### 환경변수
+### Environment Variables
 
-설정 파일 대신 환경변수로도 설정 가능:
+You can also configure using environment variables:
 
 ```bash
 export COMMITGEN_OPENAI_API_KEY=sk-xxxxx
 export COMMITGEN_CLAUDE_API_KEY=sk-ant-xxxxx
 export COMMITGEN_PROVIDER=openai
+export COMMITGEN_COMMIT_LANGUAGE=ko  # Commit message language
+export COMMITGEN_UI_LANGUAGE=en      # UI language
 ```
 
 ## Conventional Commits
 
-commitgen은 [Conventional Commits](https://www.conventionalcommits.org/) 형식을 따릅니다:
+commitgen follows the [Conventional Commits](https://www.conventionalcommits.org/) format:
 
 ```
 <type>(<scope>): <subject>
@@ -134,48 +143,94 @@ commitgen은 [Conventional Commits](https://www.conventionalcommits.org/) 형식
 [optional footer]
 ```
 
-**지원하는 타입:**
-- `feat`: 새로운 기능
-- `fix`: 버그 수정
-- `docs`: 문서 변경
-- `style`: 코드 포맷팅 (기능 변경 없음)
-- `refactor`: 리팩토링
-- `test`: 테스트 추가/수정
-- `chore`: 빌드, 설정 등 기타 변경
-- `perf`: 성능 개선
-- `ci`: CI 설정 변경
-- `build`: 빌드 시스템 변경
-- `revert`: 이전 커밋 되돌리기
+**Supported types:**
+- `feat`: A new feature
+- `fix`: A bug fix
+- `docs`: Documentation changes
+- `style`: Code formatting (no functional changes)
+- `refactor`: Code refactoring
+- `test`: Adding/modifying tests
+- `chore`: Build, config, and other changes
+- `perf`: Performance improvements
+- `ci`: CI configuration changes
+- `build`: Build system changes
+- `revert`: Revert previous commit
 
-## 예시
+## Multilingual Support
+
+commitgen supports both Korean and English:
+
+### Commit Message Language
+Configure the language for AI-generated commit messages:
+
+```bash
+# English commit messages (default, suitable for global teams)
+commitgen config set-commit-language en
+
+# Korean commit messages
+commitgen config set-commit-language ko
+```
+
+### UI Language
+Configure the CLI interface language:
+
+```bash
+# Korean UI (default)
+commitgen config set-ui-language ko
+
+# English UI
+commitgen config set-ui-language en
+```
+
+### Usage Scenarios
+
+**Scenario 1: Korean developer, global team**
+```bash
+commitgen config set-commit-language en  # English commit messages
+commitgen config set-ui-language ko      # Korean UI
+```
+
+**Scenario 2: International developer, Korean company**
+```bash
+commitgen config set-commit-language ko  # Korean commit messages
+commitgen config set-ui-language en      # English UI
+```
+
+**Scenario 3: All in English**
+```bash
+commitgen config set-commit-language en  # English commit messages
+commitgen config set-ui-language en      # English UI
+```
+
+## Example
 
 ```bash
 $ git add .
 $ commitgen
 
-🔍 Staged 변경사항 분석 중...
-✨ AI가 커밋 메시지를 생성했습니다:
+🔍 Analyzing staged changes...
+✨ AI generated commit message:
 
 feat(auth): add JWT authentication middleware
 
-? 이 커밋 메시지를 사용하시겠습니까? 
-  ▸ Yes - 커밋 실행
-    Edit - 수정 후 커밋
-    Regenerate - 다시 생성
-    Cancel - 취소
+? Do you want to use this commit message? 
+  ▸ Yes - commit
+    Edit - edit and commit
+    Regenerate - generate again
+    Cancel
 
-✓ 커밋이 완료되었습니다!
+✓ Commit completed successfully!
 ```
 
 
-## 라이선스
+## License
 
-MIT License - [LICENSE](LICENSE) 파일 참조
+MIT License - See [LICENSE](LICENSE) file
 
-## 기여
+## Contributing
 
-이슈와 PR을 환영합니다!
+Issues and PRs are welcome!
 
-## 작성자
+## Author
 
 [@leehosu](https://github.com/leehosu)

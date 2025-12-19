@@ -10,11 +10,12 @@ import (
 
 // Config는 애플리케이션 설정을 담는 구조체입니다
 type Config struct {
-	Provider string       `mapstructure:"provider"`
-	Language string       `mapstructure:"language"`
-	Template string       `mapstructure:"template"`
-	OpenAI   OpenAIConfig `mapstructure:"openai"`
-	Claude   ClaudeConfig `mapstructure:"claude"`
+	Provider       string       `mapstructure:"provider"`
+	CommitLanguage string       `mapstructure:"commit_language"` // AI가 생성하는 커밋 메시지 언어
+	UILanguage     string       `mapstructure:"ui_language"`      // CLI 인터페이스 언어
+	Template       string       `mapstructure:"template"`
+	OpenAI         OpenAIConfig `mapstructure:"openai"`
+	Claude         ClaudeConfig `mapstructure:"claude"`
 }
 
 // OpenAIConfig는 OpenAI 관련 설정입니다
@@ -34,9 +35,10 @@ type ClaudeConfig struct {
 // Default는 기본 설정을 반환합니다
 func Default() *Config {
 	return &Config{
-		Provider: "openai",
-		Language: "en",
-		Template: "conventional",
+		Provider:       "openai",
+		CommitLanguage: "en", // 커밋 메시지는 영어가 기본
+		UILanguage:     "ko", // UI는 한글이 기본
+		Template:       "conventional",
 		OpenAI: OpenAIConfig{
 			APIKey:    "",
 			Model:     "gpt-4o",
@@ -86,6 +88,12 @@ func Load() (*Config, error) {
 	if provider := os.Getenv("COMMITGEN_PROVIDER"); provider != "" {
 		cfg.Provider = provider
 	}
+	if commitLang := os.Getenv("COMMITGEN_COMMIT_LANGUAGE"); commitLang != "" {
+		cfg.CommitLanguage = commitLang
+	}
+	if uiLang := os.Getenv("COMMITGEN_UI_LANGUAGE"); uiLang != "" {
+		cfg.UILanguage = uiLang
+	}
 
 	return cfg, nil
 }
@@ -106,7 +114,8 @@ func Save(cfg *Config) error {
 	}
 
 	viper.Set("provider", cfg.Provider)
-	viper.Set("language", cfg.Language)
+	viper.Set("commit_language", cfg.CommitLanguage)
+	viper.Set("ui_language", cfg.UILanguage)
 	viper.Set("template", cfg.Template)
 	viper.Set("openai", cfg.OpenAI)
 	viper.Set("claude", cfg.Claude)

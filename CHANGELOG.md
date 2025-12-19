@@ -19,7 +19,29 @@
 ### 제거
 - 없음
 
-## [0.1.1] - 2025-12-18
+## [0.2.0] - 2024-12-19
+
+### 추가
+- 🌏 다국어 지원: 커밋 메시지와 UI 언어를 독립적으로 설정 가능
+- `set-commit-language` 명령어: AI가 생성하는 커밋 메시지 언어 설정 (ko/en)
+- `set-ui-language` 명령어: CLI 인터페이스 언어 설정 (ko/en)
+- i18n 패키지: 한글/영어 메시지 체계적 관리
+- 환경변수 지원: `COMMITGEN_COMMIT_LANGUAGE`, `COMMITGEN_UI_LANGUAGE`
+- 영어 README 추가 (기본)
+- `docs/` 폴더: 한글 문서를 docs/ko.md로 이동
+
+### 변경
+- GoReleaser 자동화: Homebrew tap 자동 업데이트 활성화
+- Config 구조: `Language` → `CommitLanguage` + `UILanguage`로 분리
+- 기본 언어 설정: 커밋 메시지(en), UI(ko)
+- README 구조: 영어 기본, 한글은 docs/ko.md로 분리
+
+### 개선
+- 글로벌 사용자를 위한 완전한 영어 지원
+- 한국 개발자를 위한 유연한 언어 조합 설정
+- 4가지 언어 시나리오 지원 (en+en, en+ko, ko+en, ko+ko)
+
+## [0.1.1] - 2024-12-18
 
 ### 추가
 - Rate limit 에러 감지 및 친절한 에러 메시지

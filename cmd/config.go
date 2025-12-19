@@ -6,6 +6,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/leehosu/commitgen/internal/config"
+	"github.com/leehosu/commitgen/internal/i18n"
 	"github.com/spf13/cobra"
 )
 
@@ -26,14 +27,16 @@ var setKeyCmd = &cobra.Command{
 		provider := args[0]
 		apiKey := args[1]
 
-		if provider != "openai" && provider != "claude" {
-			color.Red("❌ 잘못된 제공자입니다. 'openai' 또는 'claude'를 사용하세요")
-			os.Exit(1)
-		}
-
 		cfg, err := config.Load()
 		if err != nil {
 			cfg = config.Default()
+		}
+
+		msg := i18n.GetMessages(cfg.UILanguage)
+
+		if provider != "openai" && provider != "claude" {
+			color.Red("❌ " + msg.ErrorInvalidProvider)
+			os.Exit(1)
 		}
 
 		switch provider {
@@ -44,11 +47,11 @@ var setKeyCmd = &cobra.Command{
 		}
 
 		if err := config.Save(cfg); err != nil {
-			color.Red("❌ 설정 저장 실패: %v", err)
+			color.Red("❌ "+msg.ErrorSaveConfig, err)
 			os.Exit(1)
 		}
 
-		color.Green("✓ %s API 키가 저장되었습니다", provider)
+		color.Green(msg.APIKeySaved, provider)
 	},
 }
 
@@ -62,24 +65,26 @@ var setProviderCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		provider := args[0]
 
-		if provider != "openai" && provider != "claude" {
-			color.Red("❌ 잘못된 제공자입니다. 'openai' 또는 'claude'를 사용하세요")
-			os.Exit(1)
-		}
-
 		cfg, err := config.Load()
 		if err != nil {
 			cfg = config.Default()
 		}
 
-		cfg.Provider = provider
+		msg := i18n.GetMessages(cfg.UILanguage)
 
-		if err := config.Save(cfg); err != nil {
-			color.Red("❌ 설정 저장 실패: %v", err)
+		if provider != "openai" && provider != "claude" {
+			color.Red("❌ " + msg.ErrorInvalidProvider)
 			os.Exit(1)
 		}
 
-		color.Green("✓ 기본 제공자가 %s로 설정되었습니다", provider)
+		cfg.Provider = provider
+
+		if err := config.Save(cfg); err != nil {
+			color.Red("❌ "+msg.ErrorSaveConfig, err)
+			os.Exit(1)
+		}
+
+		color.Green(msg.ProviderSet, provider)
 	},
 }
 
@@ -94,14 +99,16 @@ var setModelCmd = &cobra.Command{
 		provider := args[0]
 		model := args[1]
 
-		if provider != "openai" && provider != "claude" {
-			color.Red("❌ 잘못된 제공자입니다. 'openai' 또는 'claude'를 사용하세요")
-			os.Exit(1)
-		}
-
 		cfg, err := config.Load()
 		if err != nil {
 			cfg = config.Default()
+		}
+
+		msg := i18n.GetMessages(cfg.UILanguage)
+
+		if provider != "openai" && provider != "claude" {
+			color.Red("❌ " + msg.ErrorInvalidProvider)
+			os.Exit(1)
 		}
 
 		switch provider {
@@ -112,11 +119,11 @@ var setModelCmd = &cobra.Command{
 		}
 
 		if err := config.Save(cfg); err != nil {
-			color.Red("❌ 설정 저장 실패: %v", err)
+			color.Red("❌ "+msg.ErrorSaveConfig, err)
 			os.Exit(1)
 		}
 
-		color.Green("✓ %s 모델이 %s로 설정되었습니다", provider, model)
+		color.Green(msg.ModelSet, provider, model)
 	},
 }
 
@@ -131,34 +138,106 @@ var showCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		color.Cyan("📋 현재 설정:")
-		fmt.Println()
-		
-		color.White("기본 제공자: %s", cfg.Provider)
-		color.White("언어: %s", cfg.Language)
-		color.White("템플릿: %s", cfg.Template)
+		msg := i18n.GetMessages(cfg.UILanguage)
+
+		color.Cyan(msg.ConfigTitle)
 		fmt.Println()
 
-		color.Yellow("OpenAI 설정:")
+		color.White(msg.ConfigProvider, cfg.Provider)
+		color.White(msg.ConfigCommitLanguage, cfg.CommitLanguage)
+		color.White(msg.ConfigUILanguage, cfg.UILanguage)
+		color.White(msg.ConfigTemplate, cfg.Template)
+		fmt.Println()
+
+		color.Yellow(msg.OpenAISettings)
 		if cfg.OpenAI.APIKey != "" {
 			maskedKey := maskAPIKey(cfg.OpenAI.APIKey)
-			color.White("  API 키: %s", maskedKey)
+			color.White(msg.APIKeyLabel, maskedKey)
 		} else {
-			color.White("  API 키: (설정되지 않음)")
+			color.White(msg.APIKeyNotSet)
 		}
-		color.White("  모델: %s", cfg.OpenAI.Model)
-		color.White("  Max Tokens: %d", cfg.OpenAI.MaxTokens)
+		color.White(msg.ModelLabel, cfg.OpenAI.Model)
+		color.White(msg.MaxTokensLabel, cfg.OpenAI.MaxTokens)
 		fmt.Println()
 
-		color.Yellow("Claude 설정:")
+		color.Yellow(msg.ClaudeSettings)
 		if cfg.Claude.APIKey != "" {
 			maskedKey := maskAPIKey(cfg.Claude.APIKey)
-			color.White("  API 키: %s", maskedKey)
+			color.White(msg.APIKeyLabel, maskedKey)
 		} else {
-			color.White("  API 키: (설정되지 않음)")
+			color.White(msg.APIKeyNotSet)
 		}
-		color.White("  모델: %s", cfg.Claude.Model)
-		color.White("  Max Tokens: %d", cfg.Claude.MaxTokens)
+		color.White(msg.ModelLabel, cfg.Claude.Model)
+		color.White(msg.MaxTokensLabel, cfg.Claude.MaxTokens)
+	},
+}
+
+var setCommitLanguageCmd = &cobra.Command{
+	Use:   "set-commit-language [language]",
+	Short: "커밋 메시지 언어를 설정합니다",
+	Long:  `AI가 생성하는 커밋 메시지의 언어를 설정합니다 (ko 또는 en).`,
+	Example: `  commitgen config set-commit-language en
+  commitgen config set-commit-language ko`,
+	Args: cobra.ExactArgs(1),
+	Run: func(cmd *cobra.Command, args []string) {
+		lang := args[0]
+
+		cfg, err := config.Load()
+		if err != nil {
+			cfg = config.Default()
+		}
+
+		msg := i18n.GetMessages(cfg.UILanguage)
+
+		if lang != "ko" && lang != "en" {
+			color.Red("❌ " + msg.ErrorInvalidLanguage)
+			os.Exit(1)
+		}
+
+		cfg.CommitLanguage = lang
+
+		if err := config.Save(cfg); err != nil {
+			color.Red("❌ "+msg.ErrorSaveConfig, err)
+			os.Exit(1)
+		}
+
+		color.Green(msg.CommitLanguageSet, lang)
+	},
+}
+
+var setUILanguageCmd = &cobra.Command{
+	Use:   "set-ui-language [language]",
+	Short: "UI 언어를 설정합니다",
+	Long:  `CLI 인터페이스 메시지의 언어를 설정합니다 (ko 또는 en).`,
+	Example: `  commitgen config set-ui-language en
+  commitgen config set-ui-language ko`,
+	Args: cobra.ExactArgs(1),
+	Run: func(cmd *cobra.Command, args []string) {
+		lang := args[0]
+
+		cfg, err := config.Load()
+		if err != nil {
+			cfg = config.Default()
+		}
+
+		// 현재 UI 언어로 메시지 가져오기
+		msg := i18n.GetMessages(cfg.UILanguage)
+
+		if lang != "ko" && lang != "en" {
+			color.Red("❌ " + msg.ErrorInvalidLanguage)
+			os.Exit(1)
+		}
+
+		cfg.UILanguage = lang
+
+		if err := config.Save(cfg); err != nil {
+			color.Red("❌ "+msg.ErrorSaveConfig, err)
+			os.Exit(1)
+		}
+
+		// 변경된 언어로 성공 메시지 출력
+		newMsg := i18n.GetMessages(lang)
+		color.Green(newMsg.UILanguageSet, lang)
 	},
 }
 
@@ -174,5 +253,7 @@ func init() {
 	configCmd.AddCommand(setKeyCmd)
 	configCmd.AddCommand(setProviderCmd)
 	configCmd.AddCommand(setModelCmd)
+	configCmd.AddCommand(setCommitLanguageCmd)
+	configCmd.AddCommand(setUILanguageCmd)
 	configCmd.AddCommand(showCmd)
 }
