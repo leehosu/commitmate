@@ -19,6 +19,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - Nothing
 
+## [1.1.5] - 2024-12-19
+
+### Changed
+- 🎨 **Improved edit screen layout**: Label and input on separate lines
+  - Display label first: "🛠️  메시지 수정 (Ctrl+C로 취소)"
+  - Input prompt on next line with message
+  - Much cleaner and more intuitive layout
+
+### Fixed
+- 🐛 **Fixed colon duplication issue**: Removed redundant colons in edit prompt
+- 🐛 **Fixed invisible edit prompt**: Removed problematic line breaks in promptui labels
+
+### Improved
+- ✨ **Better visual clarity**: Clear separation between label and input
+- 🛠️ **Tool emoji**: Added wrench emoji to indicate edit mode
+
 ## [1.1.4] - 2024-12-19
 
 ### Changed
