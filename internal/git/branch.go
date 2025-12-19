@@ -26,8 +26,10 @@ func ExtractJiraIssue(branchName string) string {
 }
 
 // FormatCommitMessage adds JIRA issue key if present in branch name
+// If jiraIntegration is false, explicitly skip JIRA detection
+// If true or not set, automatically detect and add JIRA issue if present
 func FormatCommitMessage(message string, jiraIntegration bool) (string, error) {
-	// JIRA 통합이 비활성화되어 있으면 원본 반환
+	// JIRA 통합이 명시적으로 비활성화되어 있으면 원본 반환
 	if !jiraIntegration {
 		return message, nil
 	}
@@ -43,10 +45,10 @@ func FormatCommitMessage(message string, jiraIntegration bool) (string, error) {
 		return message, nil
 	}
 
-	// Extract JIRA issue
+	// Extract JIRA issue - 브랜치에 JIRA 패턴이 있는지 자동 감지
 	jiraIssue := ExtractJiraIssue(branch)
 	if jiraIssue == "" {
-		return message, nil // JIRA 이슈 없으면 원본 반환
+		return message, nil // JIRA 이슈 패턴이 없으면 원본 반환
 	}
 
 	// Already has JIRA issue? Skip

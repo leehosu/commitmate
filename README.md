@@ -210,15 +210,15 @@ commitmate config set-ui-language en      # English UI
 
 ## JIRA Integration
 
-commitmate automatically detects JIRA issue numbers from branch names and adds them to commit messages.
+commitmate **automatically** detects JIRA issue numbers from branch names and adds them to commit messages - no configuration needed!
 
 ### How it works
 
-If your branch name contains a JIRA issue pattern (e.g., `PROJECT-123`, `DEVOPS2-430`), it will be automatically detected and added to the beginning of your commit message.
+Simply create a branch with a JIRA issue pattern (e.g., `PROJECT-123`, `DEVOPS2-430`) and commitmate will automatically detect and add it to your commit message.
 
 **Example:**
 ```bash
-# Create branch
+# Create branch with JIRA issue
 git checkout -b DEVOPS2-430-add-user-feature
 
 # Generate commit
@@ -228,15 +228,35 @@ commitmate
 # Result: [DEVOPS2-430] feat: add user authentication
 ```
 
+**Without JIRA pattern:**
+```bash
+# Regular branch name
+git checkout -b feature/add-auth
+
+# Generate commit  
+git add .
+commitmate
+
+# Result: feat: add user authentication (no JIRA prefix added)
+```
+
 ### Configuration
 
-```bash
-# Enable JIRA integration (default)
-commitmate config set-jira-integration true
+By default, JIRA integration is **enabled** and works automatically. You can disable it if needed:
 
-# Disable JIRA integration
+```bash
+# Disable JIRA integration (skip detection)
 commitmate config set-jira-integration false
+
+# Re-enable JIRA integration (default)
+commitmate config set-jira-integration true
 ```
+
+When enabled (default), commitmate automatically:
+- ✅ Detects JIRA patterns in branch names
+- ✅ Adds them to commit messages if found
+- ✅ Ignores branches without JIRA patterns
+- ✅ Skips special branches (main, master, develop)
 
 ### Supported patterns
 

@@ -204,15 +204,15 @@ commitmate config set-ui-language en      # 영어 UI
 
 ## JIRA 통합
 
-commitmate는 브랜치 이름에서 JIRA 이슈 번호를 자동으로 감지하여 커밋 메시지에 추가합니다.
+commitmate는 브랜치 이름에서 JIRA 이슈 번호를 **자동으로** 감지하여 커밋 메시지에 추가합니다 - 별도 설정 불필요!
 
 ### 작동 방식
 
-브랜치 이름에 JIRA 이슈 패턴(예: `PROJECT-123`, `DEVOPS2-430`)이 있으면 자동으로 감지하여 커밋 메시지 앞에 추가합니다.
+JIRA 이슈 패턴(예: `PROJECT-123`, `DEVOPS2-430`)이 포함된 브랜치를 생성하기만 하면 commitmate가 자동으로 감지하여 커밋 메시지에 추가합니다.
 
-**예시:**
+**JIRA 패턴이 있는 경우:**
 ```bash
-# 브랜치 생성
+# JIRA 이슈가 포함된 브랜치 생성
 git checkout -b DEVOPS2-430-add-user-feature
 
 # 커밋 생성
@@ -222,15 +222,35 @@ commitmate
 # 결과: [DEVOPS2-430] feat: add user authentication
 ```
 
+**JIRA 패턴이 없는 경우:**
+```bash
+# 일반 브랜치 이름
+git checkout -b feature/add-auth
+
+# 커밋 생성
+git add .
+commitmate
+
+# 결과: feat: add user authentication (JIRA 접두사 없음)
+```
+
 ### 설정
 
-```bash
-# JIRA 통합 활성화 (기본값)
-commitmate config set-jira-integration true
+기본적으로 JIRA 통합은 **활성화**되어 있으며 자동으로 작동합니다. 필요시 비활성화할 수 있습니다:
 
-# JIRA 통합 비활성화
+```bash
+# JIRA 통합 비활성화 (감지 건너뛰기)
 commitmate config set-jira-integration false
+
+# JIRA 통합 재활성화 (기본값)
+commitmate config set-jira-integration true
 ```
+
+활성화 상태(기본값)에서 commitmate는 자동으로:
+- ✅ 브랜치 이름에서 JIRA 패턴 감지
+- ✅ 패턴이 발견되면 커밋 메시지에 추가
+- ✅ JIRA 패턴이 없는 브랜치는 무시
+- ✅ 특수 브랜치(main, master, develop)는 제외
 
 ### 지원하는 패턴
 
