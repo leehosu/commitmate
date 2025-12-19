@@ -1,5 +1,5 @@
 # 바이너리
-commitgen
+commitmate
 cgen
 *.exe
 *.exe~
@@ -23,7 +23,7 @@ dist/
 build/
 
 # 설정 파일 (로컬)
-.commitgen/
+.commitmate/
 *.local.yaml
 
 # IDE

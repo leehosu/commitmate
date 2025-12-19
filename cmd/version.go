@@ -16,9 +16,9 @@ var (
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "버전 정보를 출력합니다",
-	Long:  `commitgen의 버전 정보를 출력합니다.`,
+	Long:  `commitmate의 버전 정보를 출력합니다.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("commitgen version %s\n", version)
+		fmt.Printf("commitmate version %s\n", version)
 		fmt.Printf("commit: %s\n", commit)
 		fmt.Printf("built at: %s\n", date)
 	},

@@ -20,8 +20,8 @@ var setKeyCmd = &cobra.Command{
 	Use:   "set-key [provider] [api-key]",
 	Short: "API 키를 설정합니다",
 	Long:  `OpenAI 또는 Claude의 API 키를 설정합니다.`,
-	Example: `  commitgen config set-key openai sk-xxxxx
-  commitgen config set-key claude sk-ant-xxxxx`,
+	Example: `  commitmate config set-key openai sk-xxxxx
+  commitmate config set-key claude sk-ant-xxxxx`,
 	Args: cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
 		provider := args[0]
@@ -59,8 +59,8 @@ var setProviderCmd = &cobra.Command{
 	Use:   "set-provider [provider]",
 	Short: "기본 AI 제공자를 설정합니다",
 	Long:  `기본으로 사용할 AI 제공자(openai 또는 claude)를 설정합니다.`,
-	Example: `  commitgen config set-provider openai
-  commitgen config set-provider claude`,
+	Example: `  commitmate config set-provider openai
+  commitmate config set-provider claude`,
 	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		provider := args[0]
@@ -92,8 +92,8 @@ var setModelCmd = &cobra.Command{
 	Use:   "set-model [provider] [model]",
 	Short: "AI 모델을 설정합니다",
 	Long:  `특정 제공자의 AI 모델을 변경합니다.`,
-	Example: `  commitgen config set-model openai gpt-4o-mini
-  commitgen config set-model claude claude-3-5-haiku-20241022`,
+	Example: `  commitmate config set-model openai gpt-4o-mini
+  commitmate config set-model claude claude-3-5-haiku-20241022`,
 	Args: cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
 		provider := args[0]
@@ -179,8 +179,8 @@ var setCommitLanguageCmd = &cobra.Command{
 	Use:   "set-commit-language [language]",
 	Short: "커밋 메시지 언어를 설정합니다",
 	Long:  `AI가 생성하는 커밋 메시지의 언어를 설정합니다 (ko 또는 en).`,
-	Example: `  commitgen config set-commit-language en
-  commitgen config set-commit-language ko`,
+	Example: `  commitmate config set-commit-language en
+  commitmate config set-commit-language ko`,
 	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		lang := args[0]
@@ -212,8 +212,8 @@ var setUILanguageCmd = &cobra.Command{
 	Use:   "set-ui-language [language]",
 	Short: "UI 언어를 설정합니다",
 	Long:  `CLI 인터페이스 메시지의 언어를 설정합니다 (ko 또는 en).`,
-	Example: `  commitgen config set-ui-language en
-  commitgen config set-ui-language ko`,
+	Example: `  commitmate config set-ui-language en
+  commitmate config set-ui-language ko`,
 	Args: cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		lang := args[0]

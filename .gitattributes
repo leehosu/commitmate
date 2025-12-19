@@ -13,5 +13,5 @@
 *.sh text eol=lf
 
 # 바이너리
-commitgen binary
+commitmate binary
 *.exe binary
