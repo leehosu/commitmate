@@ -113,10 +113,6 @@ commitmate config set-model claude claude-3-5-haiku-20241022
 commitmate config set-commit-language ko  # Commit message language (ko/en)
 commitmate config set-ui-language en      # UI language (ko/en)
 
-# JIRA integration
-commitmate config set-jira-integration true   # Enable JIRA integration
-commitmate config set-jira-integration false  # Disable JIRA integration
-
 # Show current configuration
 commitmate config show
 
