@@ -28,7 +28,7 @@ func getKoreanMessages() Messages {
 		PromptEdit:            "✎ Edit - 수정",
 		PromptRegenerate:      "↻ Regenerate - 다시 생성",
 		PromptCancel:          "✗ Cancel - 취소",
-		EditPromptLabel:       "메시지 수정 (Ctrl+C: 취소)",
+		EditPromptLabel:       "메시지 수정 (Ctrl+C 취소)",
 		EditActionLabel:       "수정된 메시지를 어떻게 하시겠습니까?",
 		EditActionUseMessage:  "✓ Use - 이 메시지로 커밋",
 		EditActionEditAgain:   "✎ Edit again - 다시 수정",

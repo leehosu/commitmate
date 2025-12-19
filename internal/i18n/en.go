@@ -28,7 +28,7 @@ func getEnglishMessages() Messages {
 		PromptEdit:            "✎ Edit - edit message",
 		PromptRegenerate:      "↻ Regenerate - generate again",
 		PromptCancel:          "✗ Cancel",
-		EditPromptLabel:       "Edit message (Ctrl+C to cancel)",
+		EditPromptLabel:       "Edit message (Ctrl+C cancel)",
 		EditActionLabel:       "What would you like to do with this message?",
 		EditActionUseMessage:  "✓ Use - commit with this message",
 		EditActionEditAgain:   "✎ Edit again - edit again",
