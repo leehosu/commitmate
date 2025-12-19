@@ -10,11 +10,17 @@
 
 [English](README.md) | [한국어](docs/ko.md)
 
-[Features](#features) • [Quick Start](#quick-start) • [Installation](#installation) • [Configuration](#configuration) • [Advanced](#advanced-features)
+[Overview](#overview) • [Features](#features) • [Quick Start](#quick-start) • [Installation](#installation) • [Configuration](#configuration) • [Advanced](#advanced-features)
 
 </div>
 
 ---
+
+## Overview
+
+<div align="center">
+  <img src="docs/overview.gif" alt="commitmate demo" width="800">
+</div>
 
 ## Features
 
@@ -39,12 +45,6 @@ git add .
 # 3. Generate and commit
 commitmate
 ```
-
-## Example
-
-<div align="center">
-  <img src="docs/overview.gif" alt="commitmate demo" width="800">
-</div>
 
 ## Installation
 

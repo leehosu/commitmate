@@ -10,11 +10,17 @@
 
 [English](../README.md) | [한국어](ko.md)
 
-[특징](#특징) • [빠른 시작](#빠른-시작) • [설치](#설치) • [설정](#설정) • [고급 기능](#고급-기능)
+[개요](#개요) • [특징](#특징) • [빠른 시작](#빠른-시작) • [설치](#설치) • [설정](#설정) • [고급 기능](#고급-기능)
 
 </div>
 
 ---
+
+## 개요
+
+<div align="center">
+  <img src="overview.gif" alt="commitmate demo" width="800">
+</div>
 
 ## 특징
 
@@ -39,12 +45,6 @@ git add .
 # 3. 커밋 생성 및 실행
 commitmate
 ```
-
-## 예시
-
-<div align="center">
-  <img src="overview.gif" alt="commitmate demo" width="800">
-</div>
 
 ## 설치
 
